@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.test.testapp.MainViewModel" />
+
+        <variable
+            name="myAdapter"
+            type="com.test.testapp.MyAdapter" />
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        tools:context=".MainActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adapter="@{myAdapter}"
+            android:scrollbars="none"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <RelativeLayout
+            android:id="@+id/full_image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:visibility="@{viewModel.showImage.get() ? View.VISIBLE : View.GONE}">
+
+            <ImageView
+                android:id="@+id/full_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:image="@{viewModel.selectedModel.bitmap}" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/full_image"
+                android:layout_margin="@dimen/dp_10"
+                android:onClick="@{() -> viewModel.onCloseClick()}"
+                app:srcCompat="@drawable/ic_close_white" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
